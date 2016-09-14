@@ -1,0 +1,3 @@
+module Kanade
+
+end
