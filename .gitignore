@@ -1,0 +1,8 @@
+# Alphabetically by category first, then by term
+
+# Documentation
+.yardoc
+doc
+
+# IDE-specific
+*.swp

@@ -1,6 +1,6 @@
 module Kanade
   module NamingStrategy
-    module SnakeCase < Base
+    class SnakeCase < Base
 
       configurable :always_upcase do |value|
         false unless value.is_a(FalseClass) or value.is_a(TrueClass)

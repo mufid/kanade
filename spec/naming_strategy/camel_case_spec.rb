@@ -16,8 +16,8 @@ describe Kanade::NamingStrategy::CamelCase do
   end
 
   it 'does not understand dictionary' do
-    expect(subject.serialize(:xml_serializer)).to eq(:xmlSerializer)
+    expect(subject.serialize(:xml_serializer)).to eq('xmlSerializer')
     expect(subject.deserialize('xmlSerializer')).to eq(:xml_serializer)
-    expect(subject.deserialize('XMLSerializer')).to eq(:x_m_l_serializer)
+    expect(subject.deserialize('XMLSerializer')).to eq(:xml_serializer)
   end
 end

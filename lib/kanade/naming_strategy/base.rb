@@ -1,11 +1,19 @@
 module Kanade
   module NamingStrategy
-    module Base
-      def serialize
+    class Base
+      ##
+      # Ruby --> JSON
+      def serialize(term)
         raise NotImplementedException
       end
-      def deserialize
+      ##
+      # JSON --> Ruby
+      def deserialize(term)
         raise NotImplementedException
+      end
+
+      def self.configurable(name)
+        # Do nothing for now
       end
     end
   end

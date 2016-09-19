@@ -1,7 +1,8 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'logster/version'
+
+require 'kanade/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "kanade"
@@ -20,11 +21,14 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
-  # NOTE dependency on rack is not explicit, this enables us to use
-  # logster outside of rack (for reporting)
+  # We use active support inflection, case conversion, and a lot more.
+  # Yes yes yes we need to be independent from active support, but this
+  # is good enough for now.
+  spec.add_dependency "activesupport"
 
   spec.add_development_dependency "bundler", "~> 1.12"
   spec.add_development_dependency "rake"
+  spec.add_development_dependency "yard"
   spec.add_development_dependency "rspec", "~> 3.5"
   spec.add_development_dependency "timecop"
 end

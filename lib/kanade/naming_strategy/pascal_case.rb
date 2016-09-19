@@ -1,6 +1,6 @@
 module Kanade
   module NamingStrategy
-    module PascalCase < Base
+    class PascalCase < Base
       def serialize
       end
       def deserialize
