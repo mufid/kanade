@@ -1,7 +1,10 @@
 module Kanade
-  module Config
-    class Default
-      attr_accessor :naming_strategy
+  class Config
+    def self.default
+      Config.new
     end
+
+    attr_accessor :contract
+    attr_accessor :enum
   end
 end

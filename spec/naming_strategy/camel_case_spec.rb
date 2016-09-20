@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Kanade::NamingStrategy::CamelCase do
+RSpec.describe Kanade::NamingStrategy::CamelCase do
   subject do
     Kanade::NamingStrategy::CamelCase.new
   end

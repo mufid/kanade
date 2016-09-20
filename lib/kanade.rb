@@ -5,4 +5,5 @@ require 'kanade/all'
 
 module Kanade
   class NotImplementedException < StandardError; end
+  class NotSupportedError < StandardError; end
 end
