@@ -9,6 +9,7 @@ end
 
 require_relative 'converter/base'
 (Dir["#{File.dirname(__FILE__)}/converter/*.rb"]).each do |path|
+  puts "Requiring: #{path}"
   require path
 end
 

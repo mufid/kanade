@@ -1,12 +1,18 @@
 module Kanade
   module Converter
     class Base
-      # JSON string --> Ruby object
+      puts 'huhuhuhuh'
+
+      # STORED OBJECT --> JSON String
       def serialize(term)
+        raise NotSupportedError
       end
-      # Ruby object --> JSON String
+
+      # JSON String / Input object --> Ruby object
       def deserialize(term)
+        raise NotSupportedError
       end
+
     end
   end
 end

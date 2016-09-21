@@ -6,3 +6,6 @@ doc
 
 # IDE-specific
 *.swp
+
+# Development file
+.devel
