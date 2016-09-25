@@ -30,6 +30,9 @@ module Kanade
       @@converters[key] = klass.new
     end
 
+    def self.key_from_contract(name)
+    end
+
     def self.converter(sym)
       @@converters[sym]
     end
