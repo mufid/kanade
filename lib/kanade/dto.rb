@@ -12,12 +12,12 @@ module Kanade
       variable_ref = "@#{name}".freeze
       option = options.last
       converter = Engine.converter(option[:as])
-      key_name = options[:with] || Engine.key_from_contract(name)
+      key_name = option[:with]
 
       field = FieldInfo.new
       field.converter = converter
-      field.key = key_name
-      field.sym = name
+      field.key_json = key_name
+      field.key_ruby
 
       raise NotSupportedError.new("Don't know how to convert #{option[:as]}") if converter.nil?
 
@@ -29,18 +29,7 @@ module Kanade
         instance_variable_get(variable_ref)
       end
 
-      self.__fields << name
-    end
-
-    def to_hash(parent=nil)
-      result = {}
-      # Check parent tree by default to prevent
-      # recursive looping
-      self.__fields.each do |field|
-        result[field.key] = self.send(field.sym)
-      end
-
-      result
+      self.__fields << field
     end
   end
 end

@@ -1,6 +1,8 @@
 module Kanade
   module NamingStrategy
     class CamelCase < Base
+      Engine.register_name_resolver!(self)
+
       def serialize(term)
         ActiveSupport::Inflector.camelize(term, false)
       end
