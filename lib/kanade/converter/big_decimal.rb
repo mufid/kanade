@@ -1,3 +1,5 @@
+require 'bigdecimal'
+
 module Kanade
   module Converter
     class BigDecimal < Base
@@ -10,7 +12,7 @@ module Kanade
       def deserialize(term)
         return nil if term.nil?
         return term if term.is_a?(BigDecimal)
-        BigDecimal.new(term)
+        ::BigDecimal.new(term)
       end
     end
   end

@@ -8,6 +8,7 @@ module Kanade
       end
       def deserialize(term)
         return nil if term.nil?
+        return term if term.is_a?(Float)
         term.to_f
       end
     end

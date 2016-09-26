@@ -1,7 +1,13 @@
 require 'rspec/expectations'
 
 RSpec::Matchers.define :be_json_of do |fixture_name|
+  path = File.join(File.dirname(__FILE__), '..', 'fixtures', "#{fixture_name.to_s}.json")
+  expected_json = JSON.minify File.read path
   match do |actual|
-    actual % expected == 0
+    # return false unless actual.is_a?(String)
+    actual === expected_json
+  end
+  failure_message do |actual|
+    "Expecting #{expected_json}, but got #{actual}"
   end
 end

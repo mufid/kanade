@@ -19,6 +19,7 @@
 
 require 'kanade'
 require_relative 'matchers/json_matcher'
+require_relative 'support/json_minify'
 
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate

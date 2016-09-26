@@ -1,13 +1,5 @@
 module Kanade
   class FieldInfo
-    def key
-      @key
-    end
-
-    def key=(term)
-      @key = term
-    end
-
     # Set the value of this field. Might
     # be type casted
     def convert(term)
@@ -16,5 +8,7 @@ module Kanade
 
     attr_accessor :converter
     attr_accessor :sym
+    attr_accessor :key_json
+    attr_accessor :key_ruby
   end
 end

@@ -47,7 +47,7 @@ Untuk mendefinisikan field:
           from: 'TheFieldName', # Nama field di JSON apabila tidak standar
           allow_null: true, # Ubah menjadi false agar Kanade melempar exception ketika bertemu nilai yang null
 
-Tipe data yang tersedia:
+Tipe data yang tersedia dari asal (built-in):
 
 - `:big_decimal`
 - `:bool`

@@ -1,0 +1,19 @@
+{
+  "Id": 3,
+  "Products": [
+    {
+      "Id": 100,
+      "Name": "Cat Plushie",
+      "ExpireAt": null,
+      "Price": "19.95",
+      "Available": true
+    },
+    {
+      "Id": 101,
+      "Name": "Taco",
+      "ExpireAt": "2016-09-21 13:52:44 +0700",
+      "Price": "5.0",
+      "Available": true
+    }
+  ]
+}
