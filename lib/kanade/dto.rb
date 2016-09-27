@@ -1,12 +1,16 @@
 module Kanade
   class Dto
     class_attribute :__fields
-
-    self.__fields = []
+    class_attribute :__definer
 
     def self.field(name_sym, *options)
       raise NotSupportedError.new('Field must be a symbol!') unless name_sym.is_a?(Symbol)
       raise NotSupportedError.new('Cant use reserved name (__fields)') if name == :__fields
+
+      if self.__definer != self.name
+        self.__fields = array_dup(self.__fields) || []
+        self.__definer = self.name
+      end
 
       name = name_sym.to_s.freeze
       variable_ref = "@#{name}".freeze
@@ -32,5 +36,11 @@ module Kanade
 
       self.__fields << field
     end
+
+    private
+      def self.array_dup(arr)
+        return nil if arr.nil?
+        arr.map(&:dup)
+      end
   end
 end
