@@ -20,7 +20,9 @@ RSpec.describe 'Serialization Integration' do
     def populate(product)
       product.id = 101
       product.name = 'Super Duper Enak'
-      product.expire_at = 'Tue, 10 Oct 2017 06:52:44 GMT+7'
+      # TODO Do not use ISO8601
+      # product.expire_at = 'Tue, 10 Oct 2017 06:52:44 GMT+9'
+      product.expire_at = '2017-10-10T06:52:44+09:00'
       product.available = nil
       product.price = 11
 

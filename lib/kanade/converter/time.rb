@@ -13,6 +13,8 @@ module Kanade
         return nil if term.nil?
         return term if term.is_a?(Time)
         return term if term.is_a?(Date)
+        # WARNING: Parse does not really parse TZ!
+        # Consider using ActiveSupport?
         ::Time.parse(term)
       end
 
