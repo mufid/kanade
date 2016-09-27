@@ -33,9 +33,19 @@ module Kanade
       result
     end
 
-    def deserialize(json)
-      JSON.parse(json)
-      traverse_json(json)
+    def deserialize(definition, json)
+      raise NotSupportedError.new("Can not process non-class!") unless definition.is_a?(Class)
+      raise NotSupportedError.new("Can not process other than DTO!") unless definition < Dto
+      result = definition.new
+      raw = JSON.parse json
+      result.__fields.each do |field|
+        name = field.key_json || name_to_json(field.sym)
+        value = raw[name]
+        next if value.nil?
+
+        result.send("#{field.key_ruby}=", value)
+      end
+      result
     end
 
     def self.register_converter!(klass)

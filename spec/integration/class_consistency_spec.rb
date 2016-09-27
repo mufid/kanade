@@ -18,12 +18,15 @@ class ManggaBali < Mangga
 end
 
 RSpec.describe 'Class Consistency' do
+
   it 'does not respond to non-responding method' do
     expect(Cumi.new).to respond_to(:edible)
     expect(Udang.new).to respond_to(:shrimp)
     expect(Kanade::Dto.new).to_not respond_to(:shrimp)
     expect(Kanade::Dto.new).to_not respond_to(:edible)
+    expect(Mangga.new).to_not respond_to(:color)
   end
+
   it 'behave with correct field' do
     cumi = Cumi.new
     cumi.edible = true
@@ -33,6 +36,7 @@ RSpec.describe 'Class Consistency' do
     expect(cumi.edible).to eq(true)
     expect(mangga.edible).to eq('yes')
   end
+
   it 'behave with correct inheritance' do
     m = ManggaBali.new
     m.available = 'true'
@@ -41,4 +45,5 @@ RSpec.describe 'Class Consistency' do
     expect(m.available).to eq(true)
     expect(m.edible).to eq('yes')
   end
+
 end

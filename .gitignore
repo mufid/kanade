@@ -1,8 +1,9 @@
-# Alphabetically by category first, then by term
+# Alphabetically by category first, then by term.
+# For sorting, omit dot for dot files
 
 # Documentation
-.yardoc
 doc
+.yardoc
 
 # IDE-specific
 *.swp

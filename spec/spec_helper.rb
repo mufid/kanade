@@ -20,6 +20,7 @@
 require 'kanade'
 require_relative 'matchers/json_matcher'
 require_relative 'support/json_minify'
+require_relative 'support/json_reader'
 
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
@@ -46,6 +47,8 @@ RSpec.configure do |config|
     # `true` in RSpec 4.
     mocks.verify_partial_doubles = true
   end
+
+  config.include JsonReader
 
 # The settings below are suggested to provide a good initial experience
 # with RSpec, but feel free to customize to your heart's content.
