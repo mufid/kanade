@@ -5,7 +5,7 @@ RSpec::Matchers.define :be_json_of do |fixture_name|
   expected_json = JSON.minify File.read path
   match do |actual|
     # return false unless actual.is_a?(String)
-    actual === expected_json
+    actual.strip === expected_json.strip
   end
   failure_message do |actual|
     "Expecting #{expected_json}, but got #{actual}"
