@@ -1,0 +1,10 @@
+{
+  "ID": 9321,
+  "affectedProduct": {
+    "id": 451,
+    "name": "Digital Camera",
+    "expireAt": "2019-03-30T06:52:44+09:00",
+    "price": "99.95",
+    "available": true
+  }
+}
