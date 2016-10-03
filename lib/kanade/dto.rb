@@ -18,7 +18,7 @@ module Kanade
       converter = Engine.converter(option[:as])
       key_name = option[:with]
 
-      raise Kanade::NotSupportedError.new("Don't know how to convert #{option[:as]}") if converter.nil?
+      raise Kanade::NotSupportedError.new("Converter #{option[:as]} is not registered") if converter.nil?
 
       field = FieldInfo.new
       field.converter = converter
