@@ -5,11 +5,11 @@ module Kanade
     class Time < Base
       Engine.register_converter!(self)
 
-      def serialize(term)
+      def serialize(term, _)
         return nil if term.nil?
         term.iso8601(0)
       end
-      def deserialize(term)
+      def deserialize(term, _)
         return nil if term.nil?
         return term if term.is_a?(Time)
         return term if term.is_a?(Date)

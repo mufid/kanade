@@ -20,7 +20,9 @@ RSpec.describe 'Serialization Integration' do
     def populate(product)
       product.id = 101
       product.name = 'Super Duper Enak'
-      # TODO Do not use ISO8601
+      # TODO Do not use ISO8601. Natural date seems broken in Ruby,
+      # but serialization should be seamless. It should work on
+      # our own, too!
       # product.expire_at = 'Tue, 10 Oct 2017 06:52:44 GMT+9'
       product.expire_at = '2017-10-10T06:52:44+09:00'
       product.available = nil

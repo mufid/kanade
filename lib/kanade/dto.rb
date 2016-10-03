@@ -18,13 +18,14 @@ module Kanade
       converter = Engine.converter(option[:as])
       key_name = option[:with]
 
+      raise Kanade::NotSupportedError.new("Don't know how to convert #{option[:as]}") if converter.nil?
+
       field = FieldInfo.new
       field.converter = converter
       field.key_json = key_name
       field.key_ruby = name
       field.sym = name_sym
-
-      raise Kanade::NotSupportedError.new("Don't know how to convert #{option[:as]}") if converter.nil?
+      field.options = option
 
       define_method "#{name}=" do |value|
         instance_variable_set(variable_ref, field.convert(value))

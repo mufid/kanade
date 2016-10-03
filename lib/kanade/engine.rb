@@ -26,7 +26,7 @@ module Kanade
 
       object.__fields.each do |field|
         name = field.key_json || name_to_json(field.sym)
-        value = field.converter.serialize(object.send(field.sym))
+        value = field.converter.serialize(object.send(field.sym), field)
         result[name] = value
       end
 
