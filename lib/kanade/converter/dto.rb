@@ -1,16 +1,16 @@
 module Kanade
   module Converter
-    class List < Base
+    class Dto < Base
       Engine.register_converter!(self)
 
       def serialize(term, field_info)
-        return nil if term.nil?
-        term.to_s
+        term
       end
+
       def deserialize(term, field_info)
         return nil if term.nil?
-        return term if term.is_a?(BigDecimal)
-        ::BigDecimal.new(term)
+        raise NotSupportedError.new('DTO-based field only can be filled with nil / respective DTO object') unless term.is_a?(field_info.options[:of])
+        return term
       end
     end
   end

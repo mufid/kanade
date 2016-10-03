@@ -1,6 +1,8 @@
 require 'spec_helper'
 require_relative '../fixtures/product'
 require_relative '../fixtures/product_wrong'
+require_relative '../fixtures/refund_report'
+require_relative '../fixtures/catalog'
 
 RSpec.describe 'Deserialization Integration' do
 
@@ -54,5 +56,33 @@ RSpec.describe 'Deserialization Integration' do
 
   context 'Array of products' do
 
+  end
+
+  context 'Nested object' do
+    let(:object) do
+      @engine.deserialize(RefundReport, json_of(:refund_report))
+    end
+
+    subject do
+      object
+    end
+
+    it 'has correct ID' do
+      expect(subject.refund_id).to eq(9321)
+    end
+
+    it 'has correct nested product' do
+      expect(subject.affected_product.id).to eq(451)
+      expect(subject.affected_product.name).to eq('Digital Camera')
+      expect(subject.affected_product.expire_at).to eq(Time.parse('2019-03-30T06:52:44+09:00'))
+      expect(subject.affected_product.price).to eq(BigDecimal.new('99.95'))
+      expect(subject.affected_product.available).to eq(true)
+    end
+
+    it 'has correct addendum report' do
+      expect(subject.addendum_report.refund_id).to eq(1234)
+      expect(subject.addendum_report.affected_product).to be_nil
+      expect(subject.addendum_report.addendum_report).to be_nil
+    end
   end
 end

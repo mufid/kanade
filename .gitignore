@@ -5,8 +5,10 @@
 doc
 .yardoc
 
+# Development file
+.devel
+pkg
+
 # IDE-specific
 *.swp
 
-# Development file
-.devel

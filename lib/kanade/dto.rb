@@ -12,13 +12,22 @@ module Kanade
         self.__definer = self.name
       end
 
+      option = options.last
+
+      conversion_method = option[:as]
+
+      if option[:as].is_a?(Class) and option[:as] < Dto
+        conversion_method = :dto
+        option[:of] = option[:as]
+        option[:as] = :dto
+      end
+
       name = name_sym.to_s.freeze
       variable_ref = "@#{name}".freeze
-      option = options.last
-      converter = Engine.converter(option[:as])
+      converter = Engine.converter(conversion_method)
       key_name = option[:with]
 
-      raise Kanade::NotSupportedError.new("Converter #{option[:as]} is not registered") if converter.nil?
+      raise Kanade::NotSupportedError.new("Converter #{conversion_method} is not registered") if converter.nil?
 
       field = FieldInfo.new
       field.converter = converter
