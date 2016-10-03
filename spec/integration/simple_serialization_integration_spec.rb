@@ -1,6 +1,8 @@
 require 'spec_helper'
+require_relative '../fixtures/catalog'
 require_relative '../fixtures/product'
 require_relative '../fixtures/product_wrong'
+require_relative '../fixtures/refund_report'
 
 RSpec.describe 'Serialization Integration' do
 
@@ -100,5 +102,27 @@ RSpec.describe 'Serialization Integration' do
   end
 
   context 'Nested object' do
+    subject { @engine.serialize(target) }
+
+    let(:target) do
+      report = RefundReport.new
+      report.refund_id = '9321'
+
+      product = Product.new
+      product.id = 451
+      product.name = 'Digital Camera'
+      product.expire_at = Time.parse('2019-03-30T06:52:44+09:00')
+      product.price = BigDecimal.new('99.95')
+      product.available = true
+
+      addendum_report = RefundReport.new
+      addendum_report.refund_id = 1234
+
+      report.addendum_report = addendum_report
+      report.affected_product = product
+      report
+    end
+
+    it { is_expected.to be_json_of :refund_report  }
   end
 end

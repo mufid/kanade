@@ -18,7 +18,8 @@ module Kanade
     end
 
     def traverse_field(object)
-      raise NotSupportedError.new("Serializer only works for Kanade::Dto, and #{object.class.name} does not extend Kanade::Dto") unless object.is_a?(Kanade::Dto)
+      return nil if object.nil?
+      raise NotSupportedError.new("Serializer only works for Kanade::Dto, and #{object.class.name} does not extend Kanade::Dto") unless object.class < Kanade::Dto
 
       result = {}
 
