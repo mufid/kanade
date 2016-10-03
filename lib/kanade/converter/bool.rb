@@ -5,7 +5,9 @@ module Kanade
 
       def serialize(term, _)
         return nil if term.nil?
-        term.to_s
+        return true if term.is_a?(TrueClass)
+        return false if term.is_a?(FalseClass)
+        raise NotSupportedError.new("Trying to serialize a bool, but given unknown object")
       end
       def deserialize(term, _)
         return nil if term.nil?

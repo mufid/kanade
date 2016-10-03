@@ -69,6 +69,36 @@ RSpec.describe 'Serialization Integration' do
   end
 
   context 'Array of products' do
+    subject { @engine.serialize(target) }
 
+    let(:target) do
+      catalog = Catalog.new
+      catalog.serials = [100, 105, 444]
+      catalog.id = 3
+
+      product1 = Product.new
+      product1.id = 100
+      product1.name = 'Cat Plushie'
+      product1.expire_at = nil
+      product1.price = '19.95'
+      product1.available = true
+
+      product2 = Product.new
+      product2.id = 101
+      product2.name = 'Taco'
+      product2.expire_at = '2016-09-21T13:52:44+07:00'
+      product2.price = 5
+      product2.available = true
+
+      catalog.products = []
+      catalog.products << product1
+      catalog.products << product2
+      catalog
+    end
+
+    it { is_expected.to be_json_of(:catalog_camel_case) }
+  end
+
+  context 'Nested object' do
   end
 end

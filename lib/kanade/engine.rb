@@ -24,11 +24,35 @@ module Kanade
 
       object.__fields.each do |field|
         name = field.key_json || name_to_json(field.sym)
-        value = field.converter.serialize(object.send(field.sym), field)
+
+        if field.options[:as] == :list
+          value = serialize_list(object.send(field.sym), field)
+        elsif field.options[:as] == :dto
+          value = traverse_field(object.send(field.sym))
+        else
+          value = field.converter.serialize(object.send(field.sym), field)
+        end
         result[name] = value
       end
 
       result
+    end
+
+    def serialize_list(list, field_info)
+      return nil if list.nil?
+      list.map do |entry|
+        if field_info.options[:of].is_a?(Class) and field_info.options[:of] < Dto
+          traverse_field(entry)
+        else
+          conversion_method = field_info.options[:of]
+          # TODO how to refer to static field?
+          converter = Engine.converter(conversion_method)
+
+          raise NotSupportedError.new("Can not process unknown converter! #{conversion_method}") if converter.nil?
+
+          converter.serialize(entry, field_info)
+        end
+      end
     end
 
     def deserialize(definition, json)
