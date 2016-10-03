@@ -53,11 +53,7 @@ module Kanade
         elsif field.options[:as] == :dto
           value = deserialize_object(field.options[:of], hash[name])
         else
-          begin
-            value = hash[name]
-          rescue
-            binding.pry
-          end
+          value = hash[name]
         end
 
         next if value.nil?
@@ -68,6 +64,25 @@ module Kanade
     end
 
     def deserialize_list(value, field_info)
+      return nil if value.nil?
+
+      # Catatan pribadi: Jadi "of" itu harusnya mengandung field definition?
+      # bukan of: Product, tapi of: {as: :dto, of: Product}
+      # dengan field definition ini, kita bisa membuat hal yang lebih konfleks, misal:
+      # of: {as: :symbol, mapping: {success: 'RES_SUCCESS'}}
+      value.map do |v|
+        if field_info.options[:of].is_a?(Class) and field_info.options[:of] < Dto
+          deserialize_object(field_info.options[:of], v)
+        else
+          conversion_method = field_info.options[:of]
+          # TODO how to refer to static field?
+          converter = Engine.converter(conversion_method)
+
+          raise NotSupportedError.new("Can not process unknown converter! #{conversion_method}") if converter.nil?
+
+          converter.deserialize(v, field_info)
+        end
+      end
     end
 
     def self.register_converter!(klass)

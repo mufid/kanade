@@ -55,7 +55,43 @@ RSpec.describe 'Deserialization Integration' do
   end
 
   context 'Array of products' do
+    let(:object) do
+      @engine.deserialize(Catalog, json_of(:catalog_camel_case))
+    end
 
+    subject do
+      object
+    end
+
+    it 'has correct id' do
+      expect(subject.id).to eq(3)
+      expect(subject.id).to_not eq('3')
+    end
+
+    it 'has serials of fixnum' do
+      expect(subject.serials).to eq([100, 105, 444])
+      expect(subject.serials).to_not eq([100, '105', 444])
+    end
+
+    it 'has multiple products' do
+      expect(subject.products.count).to eq(2)
+    end
+
+    it 'has correct order of products' do
+      expect(subject.products[0].id).to eq(100)
+      expect(subject.products[0].name).to eq('Cat Plushie')
+      expect(subject.products[0].expire_at).to be_nil
+      expect(subject.products[0].price).to eq(BigDecimal.new('19.95'))
+      expect(subject.products[0].price).to_not eq('19.95')
+      expect(subject.products[0].available).to eq(true)
+
+      expect(subject.products[1].id).to eq(101)
+      expect(subject.products[1].name).to eq('Taco')
+      expect(subject.products[1].expire_at).to eq(Time.parse('2016-09-21T13:52:44+07:00'))
+      expect(subject.products[1].price).to eq(BigDecimal.new('5.0'))
+      expect(subject.products[1].price).to_not eq('5.0')
+      expect(subject.products[1].available).to eq(true)
+    end
   end
 
   context 'Nested object' do
