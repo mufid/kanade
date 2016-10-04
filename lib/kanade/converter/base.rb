@@ -1,6 +1,9 @@
 module Kanade
   module Converter
     class Base
+      # TODO use module.included
+      # Engine.register_converter!(self)
+
       # STORED OBJECT --> JSON String
       def serialize(term, field_info)
         raise NotSupportedError
