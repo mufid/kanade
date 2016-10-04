@@ -13,6 +13,7 @@ module Kanade
         return nil if term.nil?
         return term if term.is_a?(FalseClass)
         return term if term.is_a?(TrueClass)
+        return from_string(term) if term.is_a?(::String)
         term ? true : false
       end
 
