@@ -3,6 +3,12 @@ lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 require 'kanade/version'
+devel = false
+
+if File.exists?(File.join(File.dirname(__FILE__), '.devel'))
+  puts ' --> WARNING: You are using development mode of this gem'
+  devel = true
+end
 
 Gem::Specification.new do |spec|
   spec.name          = "kanade"
@@ -21,8 +27,8 @@ Gem::Specification.new do |spec|
     rejected.each do |term|
       r ||= f.start_with?(term)
     end
-    puts "Rejected: #{f}" if r
-    puts "Included: #{f}" if not r
+    puts "Rejected: #{f}" if r and devel
+    puts "Included: #{f}" if not r and devel
     r
   end
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
