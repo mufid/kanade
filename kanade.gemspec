@@ -14,8 +14,16 @@ Gem::Specification.new do |spec|
   spec.homepage      = "https://github.com/mufid/kanade"
   spec.license       = "MIT"
 
+  rejected = %w{ .yardoc .devel .editorconfig .gitignore .rspec .travis.yml doc Gemfile.lock Rakefile kanade.gemspec pkg }
+
   spec.files         = `git ls-files -z`.split("\x0").reject do |f|
-    f.start_with?("bower_components") || f.start_with?("website") || f.start_with?("bin") || f.start_with?("example")
+    r = false
+    rejected.each do |term|
+      r ||= f.start_with?(term)
+    end
+    puts "Rejected: #{f}" if r
+    puts "Included: #{f}" if not r
+    r
   end
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
