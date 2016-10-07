@@ -18,12 +18,9 @@ dengan menerjemahkan object transfer data ke JSON.
 
 Buatlah sebuah berkas DTO, misalnya:
 
-    class List < Kanade::Dto
+    class ProductList < Kanade::Dto
       field :id, as: :fixnum
-      field :name, as: :string
-      field :expire_at, as: :date_time
-      field :price, as: :big_decimal
-      field :available, as: :bool
+      field :products, as: :list, of: Product
     end
 
     class Product < Kanade::Dto
@@ -36,15 +33,32 @@ Buatlah sebuah berkas DTO, misalnya:
 
 Terjemahkan dari JSON:
 
-    File.read()
+    json = '
+    {
+      "products": [
+      {
+        "price": "35.5"
+      }]
+    }
+    '
+
+    engine = Kanade::Engine.new
+    engine.configure do |config|
+      config.contract = :camel_case
+      config.enum = :upper_snake_case
+    end
+
+    list = engine.deserialize(ProductList, json)
+    list.products.first.price # => A big decimal of 35.5
+
 
 ## Sintaks
 
 Untuk mendefinisikan field:
 
-    field :field_name,
+    field :field_name, # Name field di Ruby
           as: :int, # Tipe data
-          from: 'TheFieldName', # Nama field di JSON apabila tidak standar
+          with: 'TheFieldName', # Nama field di JSON apabila tidak standar
           allow_null: true, # Ubah menjadi false agar Kanade melempar exception ketika bertemu nilai yang null
 
 Tipe data yang tersedia dari asal (built-in):
